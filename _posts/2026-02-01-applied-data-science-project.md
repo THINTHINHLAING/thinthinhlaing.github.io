@@ -7,35 +7,40 @@ categories: ITD214
 ## Project Background
 
 <p align="justify">
-Mobile applications have become a critical customer touchpoint for global sportswear brands such as Nike, adidas, PUMA, and Gymshark. These apps are not only platforms for product browsing and purchases but also key drivers of brand engagement and customer loyalty. However, poor app performance, technical issues, or unsatisfactory user experiences may lead to low ratings, negative reviews, reduced engagement, and ultimately lower customer retention.
+Mobile applications are a critical customer touchpoint for global sportswear brands such as Nike, adidas, PUMA, and Gymshark. These apps support product browsing and purchases, but they also influence customer engagement and loyalty. When users face issues such as crashes, slow performance, login problems, or poor usability, they may leave low ratings and negative reviews, which can reduce user retention and harm brand perception.
 </p>
 
 <p align="justify">
-Google Play Store reviews provide a rich source of user-generated feedback, consisting of both structured data (ratings, timestamps, thumbs-up counts) and unstructured textual content. While these reviews contain valuable insights into user satisfaction and pain points, manual analysis is impractical due to the volume and unstructured nature of the data. Therefore, a systematic, data-driven approach is required to extract meaningful business insights.
+Google Play Store reviews contain rich customer feedback in both structured form (ratings, timestamps, thumbs-up counts) and unstructured form (review text). However, the large volume and unstructured nature of reviews make manual analysis inefficient and may miss important patterns. Therefore, a systematic and data-driven approach is needed to extract insights that can support app improvement decisions.
 </p>
-<p align="justify">
-This project aims to enhance user satisfaction and engagement of sportswear mobile applications by analysing Google Play Store reviews using text analytics and predictive modelling techniques. The dataset consists of 6,446 publicly available and anonymised reviews collected from Kaggle. Each review includes information such as brand, star rating (1–5), review text, timestamp, and engagement indicators.
-</p>
-<p align="justify">
-Following the CRISP-DM framework, the project is structured into business understanding, data understanding, data preparation, modelling, and evaluation phases. The team objectives are:
-</p>
-- **Objective 1**: Identify key themes and recurring discussion topics across brands using topic modelling.  
-- **Objective 2 (My Responsibility)**: Quantify user sentiment and analyse emotional tone using supervised sentiment classification. 
-- **Objective 3**: Determine primary drivers of user satisfaction through statistical and predictive modelling.  
 
+<p align="justify">
+This project analyses 6,446 publicly available and anonymised Google Play Store reviews collected from Kaggle. Each review includes brand, star rating (1–5), review text, timestamp, and engagement indicators, enabling both text analytics and predictive modelling.
+</p>
+
+<p align="justify"> **Business Goal** </p>
+<p align="justify">
+The business goal of this project is:
+- To enhance user satisfaction and engagement for sportswear mobile applications (Nike, adidas, PUMA, and Gymshark) by leveraging data-driven insights derived from Google Play Store reviews.
+</p>
+
+<p align="justify"> **Project Objectives**</p>
+<p align="justify">
+To support the business goal, the team defined three objectives:
+- **Objective 1**: Identify key themes and recurring discussion topics across brands using topic modelling.
+- **Objective 2 (My Responsibility)**: Quantify user sentiment and analyse emotional tone using supervised sentiment classification.
+- **Objective 3**: Determine primary drivers of user satisfaction through statistical analysis and predictive modelling.
+</p>
+ 
 <p align="justify">For Objective 2, sentiment labels were derived from the "score" column to create a supervised learning framework:</p>
 - 1-2 stars → Negative
 - 3 stars     → Neutral
 - 4-5 stars → Positive
 
 <p align="justify">
-A machine learning model was then trained to predict sentiment directly from review text. Beyond classification, sentiment patterns were analysed across brands, time, and engagement indicators to uncover satisfaction trends and behavioural insights.
+A machine learning model was trained to predict sentiment from review text, followed by pattern analysis across brands, time, and engagement indicators to identify factors associated with positive and negative user experiences.
 </p>
-<p align="justify">
-By transforming unstructured review data into measurable sentiment indicators, this project supports evidence-based decision-making for improving app performance, user engagement strategies, and customer satisfaction.
-</p>
-
-
+ 
 ## Work Accomplished
 Document your work done to accomplish the outcome
 
