@@ -19,13 +19,13 @@ This project aims to enhance user satisfaction and engagement of sportswear mobi
 <p align="justify">
 Following the CRISP-DM framework, the project is structured into business understanding, data understanding, data preparation, modelling, and evaluation phases. The team objectives are:
 </p>
-- Objective 1: <p align="justify">Identify key themes and recurring discussion topics across brands using topic modelling./p>
-- Objective 2 (My Responsibility): <p align="justify">Quantify user sentiment and analyse emotional tone using supervised sentiment classification./p>
-- Objective 3: <p align="justify">Determine primary drivers of user satisfaction through statistical and predictive modelling./p>
+- **Objective 1**: <p align="justify">Identify key themes and recurring discussion topics across brands using topic modelling. </p>
+- **Objective 2 (My Responsibility)**: <p align="justify">Quantify user sentiment and analyse emotional tone using supervised sentiment classification. </p>
+- **Objective 3**: <p align="justify">Determine primary drivers of user satisfaction through statistical and predictive modelling. </p>
 
 <p align="justify">For Objective 2, sentiment labels were derived from the "score" column to create a supervised learning framework:</p>
 - 1-2 stars → Negative
-- 3 stars   → Neutral
+- 3 stars     → Neutral
 - 4-5 stars → Positive
 
 <p align="justify">
