@@ -59,9 +59,36 @@ Explain the analysis and recommendations
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.
 
 ## AI Ethics
-Discuss the potential data science ethics issues (privacy, fairness, accuracy, accountability, transparency) in your project. 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.
+## 1. Privacy & Data Protection
+The dataset consists of publicly available user reviews. No personally identifiable information (PII) was collected or used.
+
+## 2. Bias & Class Imbalance
+The dataset is imbalanced, with positive reviews representing approximately 74% of data. This may bias models toward majority classes. Macro F1-score was used to address imbalance concerns.
+
+## 3. Transparency
+Sentiment labels were generated using explicit rating-based rules, ensuring interpretability and transparency.
+
+## 4. Accountability
+Model predictions should support, not replace, human decision-making. Business recommendations derived from sentiment analysis should be validated by domain experts.
+
+## 5. Limitations
+- Sarcasm and contextual nuance may not be captured.
+- Rule-based sentiment labeling depends solely on rating.
+- Review volume varies across time, affecting monthly trend stability.
+
+# Limitations & Future Work
+
+## Limitations
+- Sentiment labels were rule-based rather than text-derived.
+- Dataset limited to English-language reviews.
+- Imbalanced classes affect minority prediction performance.
+
+## Future Improvements
+- Apply transformer-based models (e.g., BERT).
+- Perform topic modelling for deeper complaint clustering.
+- Develop real-time sentiment monitoring dashboard.
+
 
 ## Source Codes and Datasets
 Upload your model files and dataset into a GitHub repo and add the link here. 
