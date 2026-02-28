@@ -105,6 +105,15 @@ The following variables were retained for analysis:
 
 The reply_content column was removed due to 93% missing values and limited analytical relevance.
 
+#### Sentiment Ground Truth Construction
+
+Sentiment labels were derived using rule-based mapping from ratings:
+- 1–2 → Negative
+- 3 → Neutral
+- 4–5 → Positive
+
+These rating-derived labels serve as ground truth to evaluate whether textual review content can predict sentiment automatically.
+
 #### Engineered Features
 
 The following features were engineered during Data Preparation:
@@ -127,15 +136,6 @@ Preprocessing applied to create clean_content:
 - No stemming (to preserve word clarity)
 
 Note: Removal of non-ASCII characters may reduce representation of multilingual content.
-
-#### Sentiment Ground Truth Construction
-
-Sentiment labels were derived using rule-based mapping from ratings:
-- 1–2 → Negative
-- 3 → Neutral
-- 4–5 → Positive
-
-These rating-derived labels serve as ground truth to evaluate whether textual review content can predict sentiment automatically.
 
 #### Final Dataset for Analysis
 After preprocessing and removal of empty `clean_content` records, 
@@ -253,9 +253,9 @@ The dataset remained imbalanced even after removing the Neutral class; therefore
 Models evaluated:
 - TF-IDF + Logistic Regression (class_weight="balanced")
 - TF-IDF + SVM (tuned)
-- 
+  
   <p align="center">
-  <img src="/assets/Images/final-comparison-table.jpg" width="500">
+  <img src="/assets/Images/final-comparison-table.jpg" width="500" height="500">
   </p>
  
 #### Final Model Selected
