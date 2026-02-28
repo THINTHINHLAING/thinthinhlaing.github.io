@@ -1,6 +1,6 @@
 ---
 layout: post
-author: THIN THIN HLAING
+author: Thin Thin Hlaing
 title: "Applied Data Science Project Documentation"
 categories: ITD214
 ---
