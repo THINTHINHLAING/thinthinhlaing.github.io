@@ -48,8 +48,7 @@ The raw dataset contains the following fields:
 - No duplicate rows detected
 
 #### Rating Distribution
-
-
+ 
 - 5-star reviews ≈ 66%
 - Overall positive (4–5 stars) ≈ 74%
 - Neutral ≈ 4%
@@ -135,14 +134,40 @@ Sentiment labels were derived using rule-based mapping from ratings:
 
 These rating-derived labels serve as ground truth to evaluate whether textual review content can predict sentiment automatically.
 
+#### Final Dataset for Analysis
+After preprocessing and removal of empty `clean_content` records, 
+the final dataset used for pattern analysis and modelling contains 
+6,328 reviews with 12 features.
+
+The sentiment distribution below reflects this cleaned dataset.
+
+<p align="center">
+  <img src="/assets/Images/sentiment-label-distribution.jpg" width="500">
+</p>
+
 ### 4. Pattern Analysis
 
 Exploratory analysis included:
 - Sentiment distribution by brand
+  <p align="center">
+  <img src="/assets/Images/distribution-by-brand.jpg" width="500">
+  </p>
 - Engagement behaviour (thumbs-up vs sentiment)
+ <p align="center">
+  <img src="/assets/Images/thumbs-up-by-sentiment-deistribution.jpg" width="500">
+  </p>
 - Monthly sentiment trend analysis
+ <p align="center">
+  <img src="/assets/Images/monthly-sentiment-trend.jpg" width="500">
+  </p>
 - Word frequency analysis
+<p align="center">
+  <img src="/assets/Images/unigram.jpg" width="500">
+  </p>
 - Bigram analysis
+  <p align="center">
+  <img src="/assets/Images/bigram.jpg" width="500">
+  </p>
 
 Key Findings:
 
