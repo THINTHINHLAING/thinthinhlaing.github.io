@@ -259,7 +259,7 @@ Models evaluated:
 - TF-IDF + Complement Naive Bayes
   
   <p align="center">
-  <img src="/assets/Images/final-comparison-table.jpg" width="500" height="500">
+  <img src="/assets/Images/final-comparison-table.jpg" width="500" >
   </p>
 
  Among evaluated models, TF-IDF (Unigram) + Logistic Regression achieved:
