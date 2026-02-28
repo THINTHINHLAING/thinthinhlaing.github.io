@@ -166,7 +166,7 @@ Exploratory analysis included:
   </p>
 - Bigram analysis
   <p align="center">
-  <img src="/assets/Images/bigram.jpg" width="500">
+  <img src="/assets/Images/bigram.jpg" width="600">
   </p>
 
 Key Findings:
@@ -250,11 +250,19 @@ The dataset remained imbalanced even after removing the Neutral class; therefore
 Models evaluated:
 - TF-IDF + Logistic Regression (class_weight="balanced")
 - TF-IDF + SVM (tuned)
+- 
+  <p align="center">
+  <img src="/assets/Images/final-comparison-table.jpg" width="500">
+  </p>
  
 #### Final Model Selected
 
 **TF-IDF (Unigram) + Logistic Regression (class_weight="balanced")**
 
+  <p align="center">
+  <img src="/assets/Images/final-selection-model.jpg" width="500">
+  </p>
+  
 Rationale:
 
 - Highest F1-score for Negative class
