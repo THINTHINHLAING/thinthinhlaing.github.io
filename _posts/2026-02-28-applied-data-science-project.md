@@ -6,7 +6,7 @@ categories: ITD214
 ---
 ## Project Background
 
-This team project focuses on enhancing sportswear mobile application user experience through data-driven review analytics. Major sportswear brands such as Nike, Adidas, Puma, and Gymshark rely heavily on user reviews to monitor satisfaction, identify operational issues, and improve product quality.
+Our team project focuses on enhancing sportswear mobile application user experience through data-driven review analytics. Major sportswear brands such as Nike, Adidas, Puma, and Gymshark rely heavily on user reviews to monitor satisfaction, identify operational issues, and improve product quality.
 
 However, manually analysing thousands of user reviews is inefficient and difficult to scale. Therefore, the project aims to leverage data science techniques to systematically extract sentiment patterns, engagement behaviour, and recurring complaint themes from Google Play Store reviews.
 
@@ -80,9 +80,9 @@ The following cleaning and engineering steps were performed:
 - Standardised column names
 - Renamed at → review_datetime
 - Converted to datetime format
+- Created text length features from review text
 - Created year_month feature for trend analysis
 - Dropped reply_content (93% missing values)
-- Validated score range (1–5 only)
 - Validated brand values (Nike, Adidas, Puma, Gymshark)
  
 #### Data Quality Validation
@@ -137,10 +137,8 @@ Preprocessing applied to create clean_content:
 
 Note: Removal of non-ASCII characters may reduce representation of multilingual content.
 
-#### Final Dataset for Analysis
-After preprocessing and removal of empty `clean_content` records, 
-the final dataset used for pattern analysis and modelling contains 
-6,328 reviews with 12 features.
+####  Cleaned Dataset for Analysis and 3-Class Baseline Models
+After preprocessing and removal of empty clean_content records (n = 118), the final dataset used for pattern analysis and modelling contains 6,328 reviews with 12 features.
 
 The sentiment distribution below reflects this cleaned dataset.
 
@@ -186,7 +184,7 @@ Key Findings:
 - **Temporal Trend Analysis**
     - Sentiment remains largely stable across most months.
     - A slight increase in negative sentiment is observed toward 2025.
-    - Early-month fluctuations are due to smaller review volumes.
+    - Early-period fluctuations are likely influenced by smaller review volumes.
 
 - **Text Pattern Analysis (Bigram Findings)**
     - Complaint themes: customer service, refund, delivery, login issues.
@@ -242,15 +240,15 @@ This indicates that model complexity does not necessarily outperform simpler pro
 
 Due to persistent Neutral class imbalance and low recall performance (~4% class share), a binary redesign was implemented to prioritise reliable dissatisfaction detection over full sentiment granularity.
 
+<p align="center">
+  <img src="/assets/Images/binary-sentiment-label-distribution.jpg" width="500" >
+  </p>
+  
 Final classification:
 - Negative
 - Positive
 
- <p align="center">
-  <img src="/assets/Images/binary-sentiment-label-distribution.jpg" width="500" >
-  </p>
-
-The dataset remained imbalanced even after removing the Neutral class; therefore:
+Although the Neutral class was removed, the dataset remained moderately imbalanced (Positive: 76.8%, Negative: 23.2%); therefore:
 - Class-weighted models were applied
 - Balanced evaluation metrics were prioritised
 
@@ -264,12 +262,12 @@ Models evaluated:
   <img src="/assets/Images/final-comparison-table.jpg" width="500" height="500">
   </p>
 
- TF-IDF (Unigram) + Logistic Regression achieved:
+ Among evaluated models, TF-IDF (Unigram) + Logistic Regression achieved:
 
 - Negative F1-score = 0.861
 - Negative Recall = 0.929
 - Balanced Accuracy = 0.930
-- 
+  
 #### Final Model Selected
 
 **TF-IDF (Unigram) + Logistic Regression (class_weight="balanced")**
@@ -278,16 +276,15 @@ Models evaluated:
   <img src="/assets/Images/final-selection-model.jpg" width="500">
   </p>
 
-False Negative Rate (Negative misclassified as Positive):  20 / (261 + 20) ≈ 7.1%
+**False Negative Rate (Negative misclassified as Positive):  20 / (261 + 20) ≈ 7.1%**
 
-This indicates strong reliability in detecting dissatisfied users.
+This demonstrates strong reliability in dissatisfaction detection, with only 7.1% of negative cases misclassified as positive.
   
 Rationale:
 
-- Highest F1-score for Negative class
-- Best balanced accuracy
-- Strong alignment with business monitoring needs
-- More stable minority-class detection
+- Highest Negative F1-score among evaluated models
+- Strong Negative recall (0.929) 
+- Highest balanced accuracy (0.930)
 
 This model provides a practical balance between interpretability, computational efficiency, and minority-class performance.
 
@@ -305,7 +302,7 @@ This model provides a practical balance between interpretability, computational 
 
 ### Business Recommendations
 
-Following the binary redesign, recommendations focus specifically on reliable dissatisfaction detection (Negative vs Positive) to support early intervention.
+Following the binary redesign, recommendations focus specifically on reliable dissatisfaction detection (Negative vs Positive classification) to support early operational intervention.
 
 1. Prioritise high-engagement negative reviews as early warning indicators.
 2. Strengthen customer support workflows and operational reliability.
