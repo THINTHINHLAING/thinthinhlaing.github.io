@@ -18,6 +18,16 @@ My assigned responsibility was **Objective 2 – Sentiment Quantification and Pa
 To quantify user sentiment across brands and develop a predictive text classification model capable of automatically identifying dissatisfied customers based on review text. The goal is to support scalable monitoring and early detection of recurring service or operational issues.
 
 ---
+
+## Key Achievements
+
+- Developed a sentiment classification pipeline using BoW, TF-IDF and supervised machine learning.
+- Reduced negative misclassification rate to 7.1% through class-weighted modelling.
+- Achieved 0.930 balanced accuracy in binary dissatisfaction detection.
+- Identified high-engagement complaint patterns linked to operational issues.
+- Provided actionable business recommendations for early dissatisfaction monitoring.
+
+---
  
 ## Work Accomplished
 
@@ -80,7 +90,7 @@ The following cleaning and engineering steps were performed:
 - Standardised column names
 - Renamed at → review_datetime
 - Converted to datetime format
-- Created text length features from review text
+- Created text length features (character and word count)
 - Created year_month feature for trend analysis
 - Dropped reply_content (93% missing values)
 - Validated brand values (Nike, Adidas, Puma, Gymshark)
@@ -227,7 +237,7 @@ Tuned parameters included:
 - C
 - class_weight
 
-Although tuning slightly improved Neutral recall, it did not surpass BoW + Naive Bayes in overall Macro F1-score. 
+Although tuning slightly improved Neutral recall, it did not surpass the baseline BoW + Naive Bayes model in overall Macro F1-score.
 
 #### Baseline vs Tuned Comparison
 
@@ -329,10 +339,10 @@ Model outputs support decision-making and monitoring but should not replace huma
 **Reliability:**  
 Periodic retraining is recommended as app versions evolve and user behaviour changes.
 
-This project demonstrates the practical application of supervised text classification for business-oriented dissatisfaction detection under real-world class imbalance conditions.
+This project demonstrates the practical application of supervised text classification for scalable business-oriented dissatisfaction detection under real-world class imbalance conditions.
 
 ---
   
 ## Source Codes and Datasets
 Project Repository:
- - https://github.com/THINTHINHLAING/ITD214-Sportswear-App-Review-Analytics
+ - https://github.com/THINTHINHLAING/ITD214-Sportswear-App-Review-Analytics.git
