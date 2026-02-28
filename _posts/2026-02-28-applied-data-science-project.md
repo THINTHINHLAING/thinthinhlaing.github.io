@@ -17,9 +17,8 @@ My assigned responsibility was **Objective 2 – Sentiment Quantification and Pa
 **Business Objective:**  
 To quantify user sentiment across brands and develop a predictive text classification model capable of automatically identifying dissatisfied customers based on review text. The goal is to support scalable monitoring and early detection of recurring service or operational issues.
 
----
 
-## Key Achievements
+**Key Achievements**
 
 - Developed a sentiment classification pipeline using BoW, TF-IDF and supervised machine learning.
 - Reduced negative misclassification rate to 7.1% through class-weighted modelling.
