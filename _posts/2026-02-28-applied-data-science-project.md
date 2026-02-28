@@ -47,11 +47,14 @@ The raw dataset contains the following fields:
 - 4 brands (Nike, Adidas, Puma, Gymshark)
 - No duplicate rows detected
 
-#### Rating Distribution
- 
+#### Rating Score Distribution
+ <p align="center">
+  <img src="/assets/Images/original-score-distribution.jpg" width="500">
+</p>
+
 - 5-star reviews ≈ 66%
-- Overall positive (4–5 stars) ≈ 74%
-- Neutral ≈ 4%
+- Positive ratings (4–5 stars) ≈ 74%
+- 3-star (Neutral) reviews ≈ 4%
 
 This indicates strong class imbalance. This imbalance significantly influences model evaluation and selection.
 
