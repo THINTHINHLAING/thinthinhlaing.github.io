@@ -246,18 +246,30 @@ Final classification:
 - Negative
 - Positive
 
+ <p align="center">
+  <img src="/assets/Images/binary-sentiment-label-distribution.jpg" width="500" >
+  </p>
+
 The dataset remained imbalanced even after removing the Neutral class; therefore:
 - Class-weighted models were applied
 - Balanced evaluation metrics were prioritised
 
 Models evaluated:
+
 - TF-IDF + Logistic Regression (class_weight="balanced")
-- TF-IDF + SVM (tuned)
+- TF-IDF + LinearSVC (class_weight="balanced")
+- TF-IDF + Complement Naive Bayes
   
   <p align="center">
   <img src="/assets/Images/final-comparison-table.jpg" width="500" height="500">
   </p>
- 
+
+ TF-IDF (Unigram) + Logistic Regression achieved:
+
+- Negative F1-score = 0.861
+- Negative Recall = 0.929
+- Balanced Accuracy = 0.930
+- 
 #### Final Model Selected
 
 **TF-IDF (Unigram) + Logistic Regression (class_weight="balanced")**
@@ -265,6 +277,10 @@ Models evaluated:
   <p align="center">
   <img src="/assets/Images/final-selection-model.jpg" width="500">
   </p>
+
+False Negative Rate (Negative misclassified as Positive):  20 / (261 + 20) ≈ 7.1%
+
+This indicates strong reliability in detecting dissatisfied users.
   
 Rationale:
 
