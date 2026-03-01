@@ -202,9 +202,9 @@ Key Findings:
 
 ### 5. Modelling & Evaluation
 
-## Phase 1 – 3-Class Sentiment Classification (Presented in Final Presentation)
+### Phase 1 – 3-Class Sentiment Classification (Presented in Final Presentation)
 
-### 5.1 Model Setup & Configuration
+#### 5.1 Model Setup & Configuration
 
 **Objective:**  Train a supervised text classification model to predict user sentiment from review text.
 
@@ -221,7 +221,7 @@ Key Findings:
 - 20% Testing
 - Stratified sampling (preserve class distribution)
  
-### 5.2 Evaluation Strategy (Handling Class Imbalance)
+#### 5.2 Evaluation Strategy (Handling Class Imbalance)
  
 The dataset is highly imbalanced:
 - 74% Positive
@@ -239,7 +239,7 @@ Accuracy alone may overestimate model performance due to majority-class dominanc
 - Balanced Accuracy
 - Confusion Matrix analysis
 
-### 5.3 3-Class Baseline Models Evaluated
+#### 5.3 3-Class Baseline Models Evaluated
 
  <p align="center">
   <img src="/assets/Images/3-class-comparison models.jpg" width="500">
@@ -257,9 +257,9 @@ However:
 - Neutral recall remained low (~4% class share)
 - Positive class dominance influenced predictions
 
-## Phase 2 – Hyperparameter Tuning (Improvement Attempt)
+### Phase 2 – Hyperparameter Tuning (Improvement Attempt)
 
-### 5.4 TF-IDF + SVM Tuning
+#### 5.4 TF-IDF + SVM Tuning
 
 To explore potential performance improvement, TF-IDF + LinearSVC was selected for tuning using GridSearchCV.
 
@@ -272,7 +272,7 @@ To explore potential performance improvement, TF-IDF + LinearSVC was selected fo
 
 Although tuning improved Neutral recall slightly, it did not surpass the baseline BoW + Naive Bayes model in overall Macro F1-score.
 
-### 5.5 Final 3-Class Model (Presented Version)
+#### 5.5 Final 3-Class Model (Presented Version)
 
  <p align="center">
   <img src="/assets/Images/comparison-NB-turningSVM-table.jpg" width="500">
@@ -288,7 +288,7 @@ Although tuning improved Neutral recall slightly, it did not surpass the baselin
 
 This was the model selected and presented during the final project presentation.
 
-## Phase 3 – Deployment Limitation Identified (Examiner Feedback)
+### Phase 3 – Deployment Limitation Identified (Examiner Feedback)
 
 During the final presentation, feedback highlighted that:
 
@@ -300,9 +300,9 @@ From a business perspective, reliable identification of dissatisfied users is mo
 
 This motivated a reformulation of the modelling objective.
 
-## Phase 4 – Binary Redesign (Dissatisfaction Detection)
+### Phase 4 – Binary Redesign (Dissatisfaction Detection)
 
-### 5.6 Binary Redesign – Problem Reformulation & Model Setup
+#### 5.6 Binary Redesign – Problem Reformulation & Model Setup
 
 During the final presentation, feedback highlighted that the 3-class model, although optimal under Macro F1-score, showed majority-class dominance and limited operational focus on dissatisfied users.
 
@@ -336,7 +336,7 @@ After removing the Neutral class, the dataset remained moderately imbalanced:
 
 This redesign shifts the modelling focus from general sentiment categorisation to reliable identification of dissatisfied users for real-world monitoring.
 
-### 5.7 Binary Models Evaluated
+#### 5.7 Binary Models Evaluated
 
 - TF-IDF + Logistic Regression (`class_weight="balanced"`)
 - TF-IDF + LinearSVC (`class_weight="balanced"`)
@@ -352,7 +352,7 @@ Among evaluated models, **TF-IDF (Unigram) + Logistic Regression** achieved:
 - Negative Recall = 0.929
 - Balanced Accuracy = 0.930
 
-### 5.8 Final Improved Model (Deployment-Oriented)
+#### 5.8 Final Improved Model (Deployment-Oriented)
 
 **TF-IDF (Unigram) + Logistic Regression (class_weight="balanced")**
 
@@ -360,11 +360,11 @@ Among evaluated models, **TF-IDF (Unigram) + Logistic Regression** achieved:
   <img src="/assets/Images/final-selection-model.jpg" width="500">
   </p>
   
-**False Negative Rate:**  20 / (261 + 20) ≈ 7.1%
+**False Negative Rate: 20 / (261 + 20) ≈ 7.1%**
 
 This means only 7.1% of dissatisfied users would be missed.
 
-## Final Modelling Conclusion
+### Final Modelling Conclusion
 
 The modelling process evolved through:
 
