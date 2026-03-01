@@ -206,8 +206,7 @@ Key Findings:
 
 ### 5.1 Model Setup & Configuration
 
-**Objective:**  
-Train a supervised text classification model to predict user sentiment from review text.
+**Objective:**  Train a supervised text classification model to predict user sentiment from review text.
 
 **Target Variable (y):** `sentiment_label`  ( 1–2 → Negative | 3 → Neutral | 4–5 → Positive  )
 
@@ -223,7 +222,7 @@ Train a supervised text classification model to predict user sentiment from revi
 - Stratified sampling (preserve class distribution)
  
 ### 5.2 Evaluation Strategy (Handling Class Imbalance)
-
+ 
 The dataset is highly imbalanced:
 - 74% Positive
 - 22% Negative
@@ -242,6 +241,10 @@ Accuracy alone may overestimate model performance due to majority-class dominanc
 
 ### 5.3 3-Class Baseline Models Evaluated
 
+ <p align="center">
+  <img src="/assets/Images/3-class-comparison models.jpg" width="500">
+  </p>
+  
 - BoW + Naive Bayes
 - BoW + Logistic Regression
 - TF-IDF + Naive Bayes
@@ -271,8 +274,11 @@ Although tuning improved Neutral recall slightly, it did not surpass the baselin
 
 ### 5.5 Final 3-Class Model (Presented Version)
 
-**Selected Model:**  
-Bag-of-Words + Naive Bayes
+ <p align="center">
+  <img src="/assets/Images/comparison-NB-turningSVM-table.jpg" width="500">
+  </p>
+
+**Selected Model:**  Bag-of-Words + Naive Bayes
 
 **Reason for Selection:**
 - Highest Macro F1-score (0.651)
@@ -316,8 +322,7 @@ After removing the Neutral class, the dataset remained moderately imbalanced:
 - 76.8% Positive  
 - 23.2% Negative  
 
-**Input Feature (X):**
-- `clean_content` (same preprocessed review text)
+**Input Feature (X):**  `clean_content` (same preprocessed review text)
 
 **Train–Test Strategy:**
 - 80% Training  
