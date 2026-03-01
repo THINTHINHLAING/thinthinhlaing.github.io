@@ -202,100 +202,175 @@ Key Findings:
 
 ### 5. Modelling & Evaluation
 
-#### Evaluation Strategy
-Due to strong class imbalance, overall accuracy was not treated as the primary evaluation metric.
+## Phase 1 – 3-Class Sentiment Classification (Presented in Final Presentation)
 
-Instead:
-- Macro F1-score was used to ensure balanced performance across classes.
-- Balanced accuracy was used to mitigate majority-class bias.
-- Confusion matrices were analysed to inspect misclassification patterns.
-- Stratified train-test split was applied.
+### 5.1 Model Setup & Configuration
 
-#### 3-Class Baseline Models
-Models evaluated:
+**Objective:**  
+Train a supervised text classification model to predict user sentiment from review text.
+
+**Target Variable (y):** `sentiment_label`  ( 1–2 → Negative | 3 → Neutral | 4–5 → Positive  )
+
+**Input Feature (X):**  `clean_content` (preprocessed review text)
+
+**Text Representation Techniques:**
+- Bag-of-Words (BoW)
+- TF-IDF (Unigram)
+
+**Train–Test Strategy:**
+- 80% Training
+- 20% Testing
+- Stratified sampling (preserve class distribution)
+ 
+### 5.2 Evaluation Strategy (Handling Class Imbalance)
+
+The dataset is highly imbalanced:
+- 74% Positive
+- 22% Negative
+- 4% Neutral
+
+Accuracy alone may overestimate model performance due to majority-class dominance.
+
+**Primary Evaluation Metric:**
+- Macro F1-score (equal importance across classes)
+
+**Additional Metrics:**
+- Weighted F1-score
+- Neutral Recall (minority class)
+- Balanced Accuracy
+- Confusion Matrix analysis
+
+### 5.3 3-Class Baseline Models Evaluated
+
 - BoW + Naive Bayes
 - BoW + Logistic Regression
 - TF-IDF + Naive Bayes
 - TF-IDF + Logistic Regression
 - TF-IDF + SVM (LinearSVC)
 
-**BoW + Naive Bayes** achieved the highest Macro F1-score and overall balanced performance among baseline models.
+**Result:**  BoW + Naive Bayes achieved the highest Macro F1-score (0.651) and demonstrated the most balanced overall performance among baseline models.
 
 However:
-- Neutral recall remained consistently low (~4% class share).
-- Positive class dominance affected model balance.
+- Neutral recall remained low (~4% class share)
+- Positive class dominance influenced predictions
 
-#### Hyperparameter Tuning (Improvement Attempt)
+## Phase 2 – Hyperparameter Tuning (Improvement Attempt)
 
-TF-IDF + SVM was selected for hyperparameter tuning using GridSearchCV.
+### 5.4 TF-IDF + SVM Tuning
 
-Tuned parameters included:
-- min_df
-- max_df
-- sublinear_tf
-- C
-- class_weight
+To explore potential performance improvement, TF-IDF + LinearSVC was selected for tuning using GridSearchCV.
 
-Although tuning slightly improved Neutral recall, it did not surpass the baseline BoW + Naive Bayes model in overall Macro F1-score.
+**Tuned Parameters:**
+- `C`
+- `class_weight`
+- `min_df`
+- `max_df`
+- `sublinear_tf`
 
-#### Baseline vs Tuned Comparison
+Although tuning improved Neutral recall slightly, it did not surpass the baseline BoW + Naive Bayes model in overall Macro F1-score.
 
-Despite tuning TF-IDF + SVM, the baseline BoW + Naive Bayes model achieved higher Macro F1-score in the 3-class setting.
+### 5.5 Final 3-Class Model (Presented Version)
 
-This indicates that model complexity does not necessarily outperform simpler probabilistic approaches under severe class imbalance conditions.
+**Selected Model:**  
+Bag-of-Words + Naive Bayes
 
+**Reason for Selection:**
+- Highest Macro F1-score (0.651)
+- Balanced performance across classes
+- Computationally efficient
+- Interpretable and scalable
 
-#### Model Improvement – Binary Redesign - Dissatisfaction Detection
+This was the model selected and presented during the final project presentation.
 
-Due to persistent Neutral class imbalance and low recall performance (~4% class share), a binary redesign was implemented to prioritise reliable dissatisfaction detection over full sentiment granularity.
+## Phase 3 – Deployment Limitation Identified (Examiner Feedback)
+
+During the final presentation, feedback highlighted that:
+
+- The model showed strong majority-class (Positive) dominance
+- Confusion matrix patterns indicated limited operational focus on dissatisfied users
+- The model may not be sufficiently reliable for real-world deployment
+
+From a business perspective, reliable identification of dissatisfied users is more critical than full 3-class granularity.
+
+This motivated a reformulation of the modelling objective.
+
+## Phase 4 – Binary Redesign (Dissatisfaction Detection)
+
+### 5.6 Binary Redesign – Problem Reformulation & Model Setup
+
+During the final presentation, feedback highlighted that the 3-class model, although optimal under Macro F1-score, showed majority-class dominance and limited operational focus on dissatisfied users.
+
+To improve deployment suitability, the modelling objective was reformulated from 3-class sentiment classification into binary dissatisfaction detection.
+
+**New Target Variable (y):**
+- Negative → Dissatisfied
+- Positive → Satisfied
+- Neutral class removed
 
 <p align="center">
-  <img src="/assets/Images/binary-sentiment-label-distribution.jpg" width="500" >
-  </p>
-  
-Final classification:
-- Negative
-- Positive
+  <img src="/assets/Images/binary-sentiment-label-distribution.jpg" width="500">
+</p>
 
-Although the Neutral class was removed, the dataset remained moderately imbalanced (Positive: 76.8%, Negative: 23.2%); therefore:
-- Class-weighted models were applied
-- Balanced evaluation metrics were prioritised
+After removing the Neutral class, the dataset remained moderately imbalanced:
 
-Models evaluated:
+- 76.8% Positive  
+- 23.2% Negative  
 
-- TF-IDF + Logistic Regression (class_weight="balanced")
-- TF-IDF + LinearSVC (class_weight="balanced")
+**Input Feature (X):**
+- `clean_content` (same preprocessed review text)
+
+**Train–Test Strategy:**
+- 80% Training  
+- 20% Testing  
+- Stratified sampling applied  
+
+**Imbalance Handling Strategy:**
+- Applied `class_weight="balanced"` in linear models  
+- Prioritised Balanced Accuracy and Negative Recall  
+- Analysed False Negative Rate to minimise missed dissatisfied users  
+
+This redesign shifts the modelling focus from general sentiment categorisation to reliable identification of dissatisfied users for real-world monitoring.
+
+### 5.7 Binary Models Evaluated
+
+- TF-IDF + Logistic Regression (`class_weight="balanced"`)
+- TF-IDF + LinearSVC (`class_weight="balanced"`)
 - TF-IDF + Complement Naive Bayes
-  
-  <p align="center">
+
+ <p align="center">
   <img src="/assets/Images/final-comparison-table.jpg" width="500" >
   </p>
-
- Among evaluated models, TF-IDF (Unigram) + Logistic Regression achieved:
+  
+Among evaluated models, **TF-IDF (Unigram) + Logistic Regression** achieved:
 
 - Negative F1-score = 0.861
 - Negative Recall = 0.929
 - Balanced Accuracy = 0.930
-  
-#### Final Model Selected
+
+### 5.8 Final Improved Model (Deployment-Oriented)
 
 **TF-IDF (Unigram) + Logistic Regression (class_weight="balanced")**
 
   <p align="center">
   <img src="/assets/Images/final-selection-model.jpg" width="500">
   </p>
-
-**False Negative Rate (Negative misclassified as Positive):  20 / (261 + 20) ≈ 7.1%**
-
-This demonstrates strong reliability in dissatisfaction detection, with only 7.1% of negative cases misclassified as positive.
   
-Rationale:
+**False Negative Rate:**  20 / (261 + 20) ≈ 7.1%
 
-- Highest Negative F1-score among evaluated models
-- Strong Negative recall (0.929) 
-- Highest balanced accuracy (0.930)
+This means only 7.1% of dissatisfied users would be missed.
 
-This model provides a practical balance between interpretability, computational efficiency, and minority-class performance.
+## Final Modelling Conclusion
+
+The modelling process evolved through:
+
+1. 3-class baseline exploration  
+2. Hyperparameter tuning  
+3. Deployment feasibility evaluation  
+4. Business-driven binary redesign  
+
+While the 3-class BoW + Naive Bayes model was optimal under Macro F1 evaluation, the binary redesign provided stronger operational reliability for dissatisfaction detection.
+
+This demonstrates an iterative, business-aligned modelling approach consistent with the CRISP-DM framework.
 
 ---
 
