@@ -399,7 +399,7 @@ The 3-class BoW + Naive Bayes model achieved the highest Macro F1-score (0.651) 
 
 The binary redesign achieved a Balanced Accuracy of 0.930 and improved **Negative recall** to 0.929, reducing the False Negative Rate to 7.1%. Overall classification accuracy reached 0.931.
 
-This makes the model statistically robust and operationally reliable for dissatisfaction monitoring.
+This improves operational reliability for dissatisfaction monitoring under class imbalance conditions.
 
 This modelling evolution reflects the CRISP-DM principle of iterative refinement, where model design adapts based on evaluation feedback and deployment feasibility considerations.
 
