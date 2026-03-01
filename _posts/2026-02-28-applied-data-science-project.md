@@ -22,8 +22,8 @@ _**The modelling process began with 3-class sentiment classification as a baseli
 **Key Achievements**
 
 - Developed a sentiment classification pipeline using BoW, TF-IDF and supervised machine learning.
-- Reduced negative misclassification rate to 7.1% through class-weighted modelling.
-- Achieved 0.930 balanced accuracy in binary dissatisfaction detection.
+- Reduced the False Negative Rate to 7.1% through class-weighted modelling.
+- Achieved a Balanced Accuracy of 0.930 in binary dissatisfaction detection.
 - Identified high-engagement complaint patterns linked to operational issues.
 - Provided actionable business recommendations for early dissatisfaction monitoring.
 
@@ -392,16 +392,18 @@ The modelling process evolved through:
 
 1. 3-class baseline exploration  
 2. Hyperparameter tuning  
-3. Deployment feasibility evaluation  
+3. Assessment of real-world deployment suitability    
 4. Business-driven binary redesign  
 
-The 3-class BoW + Naive Bayes model achieved the highest Macro F1-score (0.651) under imbalance-aware evaluation. However, confusion matrix analysis revealed majority-class dominance and limited deployment suitability.
+The 3-class **BoW + Naive Bayes** model achieved the highest Macro F1-score (0.651) under imbalance-aware evaluation. However, confusion matrix analysis revealed majority-class dominance and limited deployment suitability.
 
-The binary redesign achieved a Balanced Accuracy of 0.930 and improved **Negative recall** to 0.929, reducing the False Negative Rate to 7.1%. Overall classification accuracy reached 0.931.
+Following reformulation, the final deployment-oriented model selected was:
 
-This improves operational reliability for dissatisfaction monitoring under class imbalance conditions.
+**TF-IDF (Unigram) + Logistic Regression (class_weight="balanced")**
 
-This modelling evolution reflects the CRISP-DM principle of iterative refinement, where model design adapts based on evaluation feedback and deployment feasibility considerations.
+This binary model achieved strong minority-class detection performance and reduced the False Negative Rate to 7.1%, improving operational reliability for dissatisfaction monitoring under class imbalance conditions.
+
+This modelling evolution reflects the CRISP-DM principle of iterative refinement, where model design adapts based on evaluation feedback and real-world deployment considerations.
 
 
 ---
