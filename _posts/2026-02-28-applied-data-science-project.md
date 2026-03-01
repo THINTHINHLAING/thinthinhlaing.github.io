@@ -39,14 +39,16 @@ To quantify user sentiment across brands and develop a predictive text classific
   https://www.kaggle.com/datasets/krisbruurs/sportswear-app-reviews-google-play
 
 The raw dataset contains the following fields:
-- brand – Application brand
-- review_id – Unique review identifier
-- score – Star rating (1–5)
-- at – Review timestamp
-- content – Review text
-- reply_content – Developer reply (largely missing)
-- thumbs_up – Number of users who found the review helpful
-- review_created_version – App version at time of review
+
+- `brand` – Application brand  
+- `review_id` – Unique review identifier  
+- `score` – Star rating (1–5)  
+- `at` – Review timestamp  
+- `content` – Review text  
+- `reply_content` – Developer reply (largely missing)  
+- `thumbs_up` – Number of users who found the review helpful  
+- `review_created_version` – App version at time of review  
+
 
 ### 2. Data Understanding
 
@@ -85,58 +87,61 @@ The following cleaning and engineering steps were performed:
 
 #### Structural Cleaning
 
-- Backed up raw dataset
-- Standardised column names
-- Renamed at → review_datetime
-- Converted to datetime format
-- Created text length features (character and word count)
-- Created year_month feature for trend analysis
-- Dropped reply_content (93% missing values)
-- Validated brand values (Nike, Adidas, Puma, Gymshark)
+- Backed up raw dataset  
+- Standardised column names  
+- Renamed `at` → `review_datetime`  
+- Converted `review_datetime` to datetime format  
+- Created text length features (`content_length_chars`, `content_length_words`)  
+- Created `year_month` feature for trend analysis  
+- Dropped `reply_content` (93% missing values)  
+- Validated `brand` values (Nike, Adidas, Puma, Gymshark)  
  
 #### Data Quality Validation
 
-- No duplicate rows detected
-- Score range validated (1–5 only)
-- Brand values validated (Nike, Adidas, Puma, Gymshark)
-- reply_content dropped due to 93% missing values
-- 118 rows removed after preprocessing due to empty clean_content (fully cleaned text contained no valid tokens)
-
+- No duplicate rows detected  
+- `score` range validated (1–5 only)  
+- `brand` values validated (Nike, Adidas, Puma, Gymshark)  
+- `reply_content` dropped due to 93% missing values  
+- 118 rows removed after preprocessing due to empty `clean_content`
+  
+ 
 #### Fields Used for Analysis & Modelling
-
+ 
 The following variables were retained for analysis:
-- brand
-- score
-- content
-- thumbs_up
-- review_datetime (renamed from at)
-- review_created_version
+
+- `brand`  
+- `score`  
+- `content`  
+- `thumbs_up`  
+- `review_datetime`  
+- `review_created_version`
 
 The reply_content column was removed due to 93% missing values and limited analytical relevance.
 
+
 #### Sentiment Ground Truth Construction
 
-Sentiment labels were derived using rule-based mapping from ratings:
+Sentiment labels were derived using rule-based mapping from `score`:
 - 1–2 → Negative
 - 3 → Neutral
 - 4–5 → Positive
 
-These rating-derived labels serve as ground truth to evaluate whether textual review content can predict sentiment automatically.
+These rating-derived labels form the target variable `sentiment_label`.
 
 #### Engineered Features
 
 The following features were engineered during Data Preparation:
 
-- review_datetime (converted "at" string data type to datetime format)
-- year_month (for temporal sentiment trend analysis)
-- content_length_chars (review length in characters)
-- content_length_words (review length in words)
-- clean_content (fully preprocessed text for modelling)
-- sentiment_label (rating-derived target variable)
+- `review_datetime` (converted "at" string data type to datetime format)
+- `year_month` (for temporal sentiment trend analysis)
+- `content_length_chars` (review length in characters)
+- `content_length_words` (review length in words)
+- `clean_content` (fully preprocessed text for modelling)
+- `sentiment_label` (rating-derived target variable)
  
 #### Text Preprocessing Pipeline
 
-Preprocessing applied to create clean_content:
+Preprocessing applied to create `clean_content`:
 - Lowercasing and whitespace normalisation
 - Normalisation of negations (e.g., "can't" → "cant")
 - Removal of punctuation, numbers, emojis, and non-ASCII characters
@@ -166,15 +171,18 @@ Exploratory analysis included:
  <p align="center">
   <img src="/assets/Images/thumbs-up-by-sentiment-deistribution.jpg" width="500">
   </p>
+  
 - Monthly sentiment trend analysis
  <p align="center">
   <img src="/assets/Images/monthly-sentiment-trend.jpg" width="500">
   </p>
-- Word frequency analysis
+  
+ - Word frequency analysis
 <p align="center">
   <img src="/assets/Images/unigram.jpg" width="500">
   </p>
-- Bigram analysis
+  
+ - Bigram analysis
   <p align="center">
   <img src="/assets/Images/bigram.jpg" width="600">
   </p>
@@ -202,13 +210,14 @@ Key Findings:
 
 ### 5. Modelling & Evaluation
 
-### Phase 1 – 3-Class Sentiment Classification (Presented in Final Presentation)
+#### Phase 1 – 3-Class Sentiment Classification (Presented in Final Presentation)
 
 #### 5.1 Model Setup & Configuration
 
 **Objective:**  Train a supervised text classification model to predict user sentiment from review text.
 
-**Target Variable (y):** `sentiment_label`  ( 1–2 → Negative | 3 → Neutral | 4–5 → Positive  )
+**Target Variable (y):** `sentiment_label`  
+(1–2 → Negative | 3 → Neutral | 4–5 → Positive)
 
 **Input Feature (X):**  `clean_content` (preprocessed review text)
 
@@ -257,7 +266,7 @@ However:
 - Neutral recall remained low (~4% class share)
 - Positive class dominance influenced predictions
 
-### Phase 2 – Hyperparameter Tuning (Improvement Attempt)
+#### Phase 2 – Hyperparameter Tuning (Improvement Attempt)
 
 #### 5.4 TF-IDF + SVM Tuning
 
@@ -288,8 +297,12 @@ Although tuning improved Neutral recall slightly, it did not surpass the baselin
 
 This was the model selected and presented during the final project presentation.
 
-### Phase 3 – Deployment Limitation Identified (Examiner Feedback)
+#### Phase 3 – Deployment Limitation Identified (Examiner Feedback)
 
+ <p align="center">
+  <img src="/assets/Images/3-class-confusion-matrix.jpg" width="500">
+  </p>
+  
 During the final presentation, feedback highlighted that:
 
 - The model showed strong majority-class (Positive) dominance
@@ -300,13 +313,11 @@ From a business perspective, reliable identification of dissatisfied users is mo
 
 This motivated a reformulation of the modelling objective.
 
-### Phase 4 – Binary Redesign (Dissatisfaction Detection)
+#### Phase 4 – Binary Redesign (Dissatisfaction Detection)
 
 #### 5.6 Binary Redesign – Problem Reformulation & Model Setup
 
-Following the deployment limitation identified in Phase 3, the modelling objective was reformulated from 3-class sentiment classification into binary dissatisfaction detection.
-
-To improve deployment suitability, the modelling objective was reformulated from 3-class sentiment classification into binary dissatisfaction detection.
+Following the deployment limitation identified in Phase 3, the modelling objective was reformulated from 3-class sentiment classification into binary dissatisfaction detection to improve real-world deployment suitability.
 
 **New Target Variable (y):**
 - Negative → Dissatisfied
@@ -362,8 +373,8 @@ Among evaluated models, **TF-IDF (Unigram) + Logistic Regression** achieved:
   
 **False Negative Rate: 20 / (261 + 20) ≈ 7.1%**
 
-This means only 7.1% of dissatisfied users would be missed.
-From an operational perspective, minimising false negatives is critical because misclassifying dissatisfied users as satisfied may delay intervention and escalate service risks.
+This means only 7.1% of dissatisfied users would be missed. From an operational perspective, minimising false negatives is critical because misclassifying dissatisfied users as satisfied may delay intervention and escalate service risks.
+
 
 ### Final Modelling Conclusion
 
