@@ -17,6 +17,7 @@ My assigned responsibility was **Objective 2 – Sentiment Quantification and Pa
 **Business Objective:**  
 To quantify user sentiment across brands and develop a predictive text classification model capable of automatically identifying dissatisfied customers based on review text. The goal is to support scalable monitoring and early detection of recurring service or operational issues.
 
+_**The modelling process began with 3-class sentiment classification as a baseline validation step, and was later reformulated into binary dissatisfaction detection to better support deployment requirements.**_
 
 **Key Achievements**
 
@@ -212,7 +213,9 @@ Key Findings:
 
 #### Phase 1 – 3-Class Sentiment Classification (Presented in Final Presentation)
 
-#### 5.1 Model Setup & Configuration
+The modelling objective is to learn a supervised classification function 𝑓(𝑋) → 𝑦, where textual review content (`clean_content`) is used to predict sentiment category (`sentiment_label`).
+
+##### 5.1 Model Setup & Configuration
 
 **Objective:**  Train a supervised text classification model to predict user sentiment from review text.
 
@@ -230,7 +233,7 @@ Key Findings:
 - 20% Testing
 - Stratified sampling (preserve class distribution)
  
-#### 5.2 Evaluation Strategy (Handling Class Imbalance)
+##### 5.2 Evaluation Strategy (Handling Class Imbalance)
  
 The dataset is highly imbalanced:
 - 74% Positive
@@ -242,13 +245,14 @@ Accuracy alone may overestimate model performance due to majority-class dominanc
 **Primary Evaluation Metric:**
 - Macro F1-score (equal importance across classes)
 
+Macro F1 was prioritised because the Neutral class represented only ~4% of the dataset and required equal weighting to prevent majority bias.
+
 **Additional Metrics:**
 - Weighted F1-score
-- Neutral Recall (minority class)
-- Balanced Accuracy
+- Neutral Recall (minority class) 
 - Confusion Matrix analysis
 
-#### 5.3 3-Class Baseline Models Evaluated
+##### 5.3 3-Class Baseline Models Evaluated
 
  <p align="center">
   <img src="/assets/Images/3-class-comparison models.jpg" width="500">
@@ -268,7 +272,7 @@ However:
 
 #### Phase 2 – Hyperparameter Tuning (Improvement Attempt)
 
-#### 5.4 TF-IDF + SVM Tuning
+##### 5.4 TF-IDF + SVM Tuning
 
 To explore potential performance improvement, TF-IDF + LinearSVC was selected for tuning using GridSearchCV.
 
@@ -279,9 +283,11 @@ To explore potential performance improvement, TF-IDF + LinearSVC was selected fo
 - `max_df`
 - `sublinear_tf`
 
-Although tuning improved Neutral recall slightly, it did not surpass the baseline BoW + Naive Bayes model in overall Macro F1-score.
+5-fold cross-validation was applied within GridSearchCV to reduce overfitting risk and ensure model generalisation.
+Although tuning improved Neutral recall slightly, it did not surpass the baseline BoW + Naive Bayes model in overall Macro F1-score. 
 
-#### 5.5 Final 3-Class Model (Presented Version)
+
+##### 5.5 Final 3-Class Model (Presented Version)
 
  <p align="center">
   <img src="/assets/Images/comparison-NB-turningSVM-table.jpg" width="500">
@@ -311,11 +317,11 @@ During the final presentation, feedback highlighted that:
 
 From a business perspective, reliable identification of dissatisfied users is more critical than full 3-class granularity.
 
-This motivated a reformulation of the modelling objective.
+This motivated a reformulation of the modelling objective. To address this limitation, a redesigned binary classification framework was implemented.
 
 #### Phase 4 – Binary Redesign (Dissatisfaction Detection)
 
-#### 5.6 Binary Redesign – Problem Reformulation & Model Setup
+##### 5.6 Binary Redesign – Problem Reformulation & Model Setup
 
 Following the deployment limitation identified in Phase 3, the modelling objective was reformulated from 3-class sentiment classification into binary dissatisfaction detection to improve real-world deployment suitability.
 
@@ -324,6 +330,8 @@ Following the deployment limitation identified in Phase 3, the modelling objecti
 - Positive → Satisfied
 - Neutral class removed
 
+_**In this context, “dissatisfied” refers to low ratings (1–2 stars) that indicate service/product frustration and require operational attention.**_
+
 <p align="center">
   <img src="/assets/Images/binary-sentiment-label-distribution.jpg" width="500">
 </p>
@@ -331,7 +339,9 @@ Following the deployment limitation identified in Phase 3, the modelling objecti
 After removing the Neutral class, the dataset remained moderately imbalanced:
 
 - 76.8% Positive  
-- 23.2% Negative  
+- 23.2% Negative
+
+The Neutral class (≈4%) was both underrepresented and semantically ambiguous, reducing model stability and interpretability in deployment scenarios.
 
 **Input Feature (X):**  `clean_content` (same preprocessed review text)
 
@@ -347,7 +357,7 @@ After removing the Neutral class, the dataset remained moderately imbalanced:
 
 This redesign shifts the modelling focus from general sentiment categorisation to reliable identification of dissatisfied users for real-world monitoring.
 
-#### 5.7 Binary Models Evaluated
+##### 5.7 Binary Models Evaluated
 
 - TF-IDF + Logistic Regression (`class_weight="balanced"`)
 - TF-IDF + LinearSVC (`class_weight="balanced"`)
@@ -363,7 +373,7 @@ Among evaluated models, **TF-IDF (Unigram) + Logistic Regression** achieved:
 - Negative Recall = 0.929
 - Balanced Accuracy = 0.930
 
-#### 5.8 Final Improved Model (Deployment-Oriented)
+##### 5.8 Final Improved Model (Deployment-Oriented)
 
 **TF-IDF (Unigram) + Logistic Regression (class_weight="balanced")**
 
@@ -385,9 +395,14 @@ The modelling process evolved through:
 3. Deployment feasibility evaluation  
 4. Business-driven binary redesign  
 
-While the 3-class BoW + Naive Bayes model was optimal under Macro F1 evaluation, the binary redesign provided stronger operational reliability for dissatisfaction detection.
+The 3-class BoW + Naive Bayes model achieved the highest Macro F1-score (0.651) under imbalance-aware evaluation. However, confusion matrix analysis revealed majority-class dominance and limited deployment suitability.
 
-This demonstrates an iterative, evaluation-driven modelling approach that balances statistical performance with real-world deployment requirements under class imbalance constraints.
+The binary redesign achieved a Balanced Accuracy of 0.930 and improved **Negative recall** to 0.929, reducing the False Negative Rate to 7.1%. Overall classification accuracy reached 0.931.
+
+This makes the model statistically robust and operationally reliable for dissatisfaction monitoring.
+
+This modelling evolution reflects the CRISP-DM principle of iterative refinement, where model design adapts based on evaluation feedback and deployment feasibility considerations.
+
 
 ---
 
