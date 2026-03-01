@@ -304,7 +304,7 @@ This motivated a reformulation of the modelling objective.
 
 #### 5.6 Binary Redesign – Problem Reformulation & Model Setup
 
-During the final presentation, feedback highlighted that the 3-class model, although optimal under Macro F1-score, showed majority-class dominance and limited operational focus on dissatisfied users.
+Following the deployment limitation identified in Phase 3, the modelling objective was reformulated from 3-class sentiment classification into binary dissatisfaction detection.
 
 To improve deployment suitability, the modelling objective was reformulated from 3-class sentiment classification into binary dissatisfaction detection.
 
@@ -363,6 +363,7 @@ Among evaluated models, **TF-IDF (Unigram) + Logistic Regression** achieved:
 **False Negative Rate: 20 / (261 + 20) ≈ 7.1%**
 
 This means only 7.1% of dissatisfied users would be missed.
+From an operational perspective, minimising false negatives is critical because misclassifying dissatisfied users as satisfied may delay intervention and escalate service risks.
 
 ### Final Modelling Conclusion
 
@@ -375,7 +376,7 @@ The modelling process evolved through:
 
 While the 3-class BoW + Naive Bayes model was optimal under Macro F1 evaluation, the binary redesign provided stronger operational reliability for dissatisfaction detection.
 
-This demonstrates an iterative, business-aligned modelling approach consistent with the CRISP-DM framework.
+This demonstrates an iterative, evaluation-driven modelling approach that balances statistical performance with real-world deployment requirements under class imbalance constraints.
 
 ---
 
@@ -391,7 +392,7 @@ This demonstrates an iterative, business-aligned modelling approach consistent w
 
 ### Business Recommendations
 
-Following the binary redesign, recommendations focus specifically on reliable dissatisfaction detection (Negative vs Positive classification) to support early operational intervention.
+Following the deployment-oriented binary redesign, recommendations prioritise reliable identification and monitoring of dissatisfied users to support early operational intervention.
 
 1. Prioritise high-engagement negative reviews as early warning indicators.
 2. Strengthen customer support workflows and operational reliability.
